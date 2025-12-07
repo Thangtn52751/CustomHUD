@@ -2,126 +2,101 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<title>Bảng điều khiển BLAST HUD (có browse file logo)</title>
+<title>Bảng điều khiển HUD BLAST – Upload Logo</title>
 <style>
-body {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    background: #101014;
-    color: #fff;
-}
-button {
-    padding: 10px 20px;
-    font-size: 18px;
-    margin: 6px;
-    cursor: pointer;
-    border-radius: 8px;
-}
-input[type="text"] {
-    padding: 8px;
-    font-size: 16px;
-    margin: 6px;
-    width: 250px;
-}
-input[type="file"] {
-    margin: 6px;
-}
-.team-block {
-    margin-bottom: 25px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #333;
-}
+body { font-family: Arial; padding: 20px; background: #101014; color: #fff; }
+button { padding: 10px 20px; font-size: 18px; margin: 6px; cursor: pointer; border-radius: 8px; }
+input[type="text"], input[type="file"] { padding: 8px; font-size: 16px; margin: 6px; width: 250px; }
+.team-block { margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid #333; }
 </style>
 </head>
-
 <body>
 <h1>BẢNG ĐIỀU KHIỂN HUD BLAST PREMIER</h1>
 
 <div class="team-block">
-    <h2>TEAM 1</h2>
-    <input id="t1-name" type="text" placeholder="Tên đội 1"><button onclick="setName(1)">Đặt tên</button><br>
-    
-    <!-- Chọn file logo -->
-    <input type="file" id="t1-logo-file" accept="image/*">
-    <button onclick="setLogoFile(1)">Chọn logo đội 1</button><br>
-    
-    <!-- URL logo vẫn giữ nếu bạn muốn -->
-    <input id="t1-logo" type="text" placeholder="URL logo đội 1 (hoặc dùng browse file)">
-    <button onclick="setLogo(1)">Đặt logo từ URL</button><br>
-    
-    <button onclick="addScore(1)">+ Điểm</button>
-    <button onclick="subScore(1)">- Điểm</button>
+<h2>TEAM 1</h2>
+<input id="t1-name" type="text" placeholder="Tên đội 1"><button onclick="setName(1)">Đặt tên</button><br>
+<input id="t1-logo" type="text" placeholder="URL logo đội 1"><button onclick="setLogo(1)">Đặt logo</button><br>
+<input type="file" id="t1-logo-file"><button onclick="uploadLogo(1)">Upload logo</button><br>
+<button onclick="addScore(1)">+ Điểm</button>
+<button onclick="subScore(1)">- Điểm</button>
 </div>
 
 <div class="team-block">
-    <h2>TEAM 2</h2>
-    <input id="t2-name" type="text" placeholder="Tên đội 2"><button onclick="setName(2)">Đặt tên</button><br>
-    
-    <!-- Chọn file logo -->
-    <input type="file" id="t2-logo-file" accept="image/*">
-    <button onclick="setLogoFile(2)">Chọn logo đội 2</button><br>
-    
-    <!-- URL logo vẫn giữ nếu bạn muốn -->
-    <input id="t2-logo" type="text" placeholder="URL logo đội 2 (hoặc dùng browse file)">
-    <button onclick="setLogo(2)">Đặt logo từ URL</button><br>
-    
-    <button onclick="addScore(2)">+ Điểm</button>
-    <button onclick="subScore(2)">- Điểm</button>
+<h2>TEAM 2</h2>
+<input id="t2-name" type="text" placeholder="Tên đội 2"><button onclick="setName(2)">Đặt tên</button><br>
+<input id="t2-logo" type="text" placeholder="URL logo đội 2"><button onclick="setLogo(2)">Đặt logo</button><br>
+<input type="file" id="t2-logo-file"><button onclick="uploadLogo(2)">Upload logo</button><br>
+<button onclick="addScore(2)">+ Điểm</button>
+<button onclick="subScore(2)">- Điểm</button>
 </div>
 
 <button onclick="resetScore()" style="background:red;color:white;">RESET SCORE</button>
 
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
 <script>
-function addScore(team) {
-    let key = team === 1 ? "score_t1" : "score_t2";
-    let current = Number(localStorage.getItem(key) || 0);
-    localStorage.setItem(key, current + 1);
+const firebaseConfig = {
+  apiKey: "API_KEY",
+  authDomain: "PROJECT_ID.firebaseapp.com",
+  databaseURL: "https://PROJECT_ID-default-rtdb.firebaseio.com",
+  projectId: "PROJECT_ID",
+  storageBucket: "PROJECT_ID.appspot.com",
+  messagingSenderId: "SENDER_ID",
+  appId: "APP_ID"
+};
+const app = firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+// Thay token & repo của bạn
+const GITHUB_TOKEN = "YOUR_PERSONAL_ACCESS_TOKEN";
+const REPO = "Thangtn52751/CustomHUD";
+
+function setName(team){
+  let name = document.getElementById(`t${team}-name`).value;
+  db.ref(`teams/team${team}/name`).set(name);
 }
 
-function subScore(team) {
-    let key = team === 1 ? "score_t1" : "score_t2";
-    let current = Number(localStorage.getItem(key) || 0);
-    if (current > 0) localStorage.setItem(key, current - 1);
+function setLogo(team){
+  let url = document.getElementById(`t${team}-logo`).value;
+  db.ref(`teams/team${team}/logo`).set(url);
 }
 
-function setName(team) {
-    let name = document.getElementById(`t${team}-name`).value;
-    localStorage.setItem(team === 1 ? "name_t1" : "name_t2", name);
+// Upload file logo lên GitHub và lấy raw link
+async function uploadLogo(team){
+  const fileInput = document.getElementById(`t${team}-logo-file`);
+  if(fileInput.files.length===0){ alert("Chọn file logo!"); return; }
+  const file = fileInput.files[0];
+  const reader = new FileReader();
+  reader.onload = async function(e){
+    const base64 = e.target.result.split(",")[1];
+    const path = `logos/team${team}-${Date.now()}.png`;
+    const response = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`,{
+      method: "PUT",
+      headers: {
+        "Authorization": `token ${GITHUB_TOKEN}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        message: `Upload logo team ${team}`,
+        content: base64
+      })
+    });
+    const data = await response.json();
+    const rawUrl = `https://raw.githubusercontent.com/${REPO}/main/${path}`;
+    db.ref(`teams/team${team}/logo`).set(rawUrl);
+    alert("Upload thành công, HUD sẽ cập nhật logo ngay!");
+  };
+  reader.readAsDataURL(file);
 }
 
-function setLogo(team) {
-    let logo = document.getElementById(`t${team}-logo`).value;
-    localStorage.setItem(team === 1 ? "logo_t1" : "logo_t2", logo);
-}
+// Điểm số
+function addScore(team){ db.ref(`teams/team${team}/score`).transaction(x=>(x||0)+1); }
+function subScore(team){ db.ref(`teams/team${team}/score`).transaction(x=>(x||0)-1); }
+function resetScore(){ db.ref("teams").set({ team1:{score:0,name:"TEAM A",logo:""}, team2:{score:0,name:"TEAM B",logo:""} }); }
 
-// MỚI: Chọn file logo từ máy tính và lưu base64 vào localStorage
-function setLogoFile(team) {
-    let inputId = team === 1 ? "t1-logo-file" : "t2-logo-file";
-    let fileInput = document.getElementById(inputId);
-    if (fileInput.files.length === 0) {
-        alert("Vui lòng chọn file ảnh!");
-        return;
-    }
-
-    let file = fileInput.files[0];
-    let reader = new FileReader();
-
-    reader.onload = function(e) {
-        let dataUrl = e.target.result;  // Base64 string
-        if(team === 1) {
-            localStorage.setItem("logo_t1", dataUrl);
-        } else {
-            localStorage.setItem("logo_t2", dataUrl);
-        }
-    };
-
-    reader.readAsDataURL(file);
-}
-
-function resetScore() {
-    localStorage.setItem("score_t1", 0);
-    localStorage.setItem("score_t2", 0);
-}
 </script>
 </body>
 </html>
