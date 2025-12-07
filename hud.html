@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>BLAST HUD</title>
+<style>
+body {
+    margin: 0;
+    background: transparent;
+    overflow: hidden;
+    font-family: "Inter", Arial, sans-serif;
+}
+
+/* Container chính ở TOP */
+#scoreboard {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 80px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    padding: 10px 25px;
+    background: rgb(0, 0, 0);
+    backdrop-filter: blur(14px);
+    border: 2px solid rgba(255,255,255,0.08);
+    border-radius: 18px;
+}
+
+/* LOGO */
+.team-logo {
+    width: 55px;
+    height: 55px;
+    border-radius: 10px;
+    object-fit: contain;
+    background: rgba(255,255,255,0.1);
+}
+
+/* Tên đội */
+.team-name {
+    color: #fff;
+    font-size: 26px;
+    font-weight: 700;
+    max-width: 180px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+/* Score trung tâm */
+#score {
+    font-size: 42px;
+    font-weight: 900;
+    color: white;
+    padding: 0 22px;
+    border-radius: 12px;
+    background: linear-gradient(90deg, rgba(130,62,255,0.4), rgba(0,110,255,0.4));
+    border: 2px solid rgba(255,255,255,0.15);
+}
+</style>
+</head>
+
+<body>
+<div id="scoreboard">
+    <img id="logo1" class="team-logo" src="">
+    <div id="team1-name" class="team-name">TEAM A</div>
+
+    <div id="score">0 : 0</div>
+
+    <div id="team2-name" class="team-name">TEAM B</div>
+    <img id="logo2" class="team-logo" src="">
+</div>
+
+<script>
+function updateHUD() {
+    const s1 = localStorage.getItem("score_t1") || 0;
+    const s2 = localStorage.getItem("score_t2") || 0;
+    const n1 = localStorage.getItem("name_t1") || "TEAM A";
+    const n2 = localStorage.getItem("name_t2") || "TEAM B";
+    const l1 = localStorage.getItem("logo_t1") || "";
+    const l2 = localStorage.getItem("logo_t2") || "";
+
+    document.getElementById("team1-name").innerText = n1;
+    document.getElementById("team2-name").innerText = n2;
+
+    document.getElementById("score").innerText = `${s1} : ${s2}`;
+
+    document.getElementById("logo1").src = l1;
+    document.getElementById("logo2").src = l2;
+}
+
+setInterval(updateHUD, 100);
+</script>
+
+</body>
+</html>

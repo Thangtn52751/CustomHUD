@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Bảng điều khiển BLAST HUD (có browse file logo)</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background: #101014;
+    color: #fff;
+}
+button {
+    padding: 10px 20px;
+    font-size: 18px;
+    margin: 6px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+input[type="text"] {
+    padding: 8px;
+    font-size: 16px;
+    margin: 6px;
+    width: 250px;
+}
+input[type="file"] {
+    margin: 6px;
+}
+.team-block {
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #333;
+}
+</style>
+</head>
+
+<body>
+<h1>BẢNG ĐIỀU KHIỂN HUD BLAST PREMIER</h1>
+
+<div class="team-block">
+    <h2>TEAM 1</h2>
+    <input id="t1-name" type="text" placeholder="Tên đội 1"><button onclick="setName(1)">Đặt tên</button><br>
+    
+    <!-- Chọn file logo -->
+    <input type="file" id="t1-logo-file" accept="image/*">
+    <button onclick="setLogoFile(1)">Chọn logo đội 1</button><br>
+    
+    <!-- URL logo vẫn giữ nếu bạn muốn -->
+    <input id="t1-logo" type="text" placeholder="URL logo đội 1 (hoặc dùng browse file)">
+    <button onclick="setLogo(1)">Đặt logo từ URL</button><br>
+    
+    <button onclick="addScore(1)">+ Điểm</button>
+    <button onclick="subScore(1)">- Điểm</button>
+</div>
+
+<div class="team-block">
+    <h2>TEAM 2</h2>
+    <input id="t2-name" type="text" placeholder="Tên đội 2"><button onclick="setName(2)">Đặt tên</button><br>
+    
+    <!-- Chọn file logo -->
+    <input type="file" id="t2-logo-file" accept="image/*">
+    <button onclick="setLogoFile(2)">Chọn logo đội 2</button><br>
+    
+    <!-- URL logo vẫn giữ nếu bạn muốn -->
+    <input id="t2-logo" type="text" placeholder="URL logo đội 2 (hoặc dùng browse file)">
+    <button onclick="setLogo(2)">Đặt logo từ URL</button><br>
+    
+    <button onclick="addScore(2)">+ Điểm</button>
+    <button onclick="subScore(2)">- Điểm</button>
+</div>
+
+<button onclick="resetScore()" style="background:red;color:white;">RESET SCORE</button>
+
+<script>
+function addScore(team) {
+    let key = team === 1 ? "score_t1" : "score_t2";
+    let current = Number(localStorage.getItem(key) || 0);
+    localStorage.setItem(key, current + 1);
+}
+
+function subScore(team) {
+    let key = team === 1 ? "score_t1" : "score_t2";
+    let current = Number(localStorage.getItem(key) || 0);
+    if (current > 0) localStorage.setItem(key, current - 1);
+}
+
+function setName(team) {
+    let name = document.getElementById(`t${team}-name`).value;
+    localStorage.setItem(team === 1 ? "name_t1" : "name_t2", name);
+}
+
+function setLogo(team) {
+    let logo = document.getElementById(`t${team}-logo`).value;
+    localStorage.setItem(team === 1 ? "logo_t1" : "logo_t2", logo);
+}
+
+// MỚI: Chọn file logo từ máy tính và lưu base64 vào localStorage
+function setLogoFile(team) {
+    let inputId = team === 1 ? "t1-logo-file" : "t2-logo-file";
+    let fileInput = document.getElementById(inputId);
+    if (fileInput.files.length === 0) {
+        alert("Vui lòng chọn file ảnh!");
+        return;
+    }
+
+    let file = fileInput.files[0];
+    let reader = new FileReader();
+
+    reader.onload = function(e) {
+        let dataUrl = e.target.result;  // Base64 string
+        if(team === 1) {
+            localStorage.setItem("logo_t1", dataUrl);
+        } else {
+            localStorage.setItem("logo_t2", dataUrl);
+        }
+    };
+
+    reader.readAsDataURL(file);
+}
+
+function resetScore() {
+    localStorage.setItem("score_t1", 0);
+    localStorage.setItem("score_t2", 0);
+}
+</script>
+</body>
+</html>
