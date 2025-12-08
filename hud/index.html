@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>HUD Overlay</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="hud-header">
+  <span id="tournament-name"></span>
+  <span>•</span>
+  <span id="bo-round"></span>
+</div>
+
+<div id="scoreboard">
+  <div id="side-left" class="side">
+    <img id="logo-left" class="team-logo">
+    <div id="name-left" class="team-name"></div>
+  </div>
+
+  <div id="score">
+    <span id="s1" class="score-left">0</span>
+    <div id="split-line"></div>
+    <span id="s2" class="score-right">0</span>
+  </div>
+
+  <div id="side-right" class="side">
+    <div id="name-right" class="team-name"></div>
+    <img id="logo-right" class="team-logo">
+  </div>
+</div>
+
+<div id="hud-map-picks"></div>
+
+<div id="victory-screen" class="hidden">
+  <div id="victory-content">
+    <img id="victory-logo">
+    <div id="victory-name"></div>
+    <div id="victory-text">WINS THE MAP</div>
+  </div>
+</div>
+
+<audio id="victory-sound">
+  <source src="victory.mp3" type="audio/mpeg">
+</audio>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>

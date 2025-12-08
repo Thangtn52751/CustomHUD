@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>HUD Controller</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>HUD CONTROL PANEL</h1>
+
+<div class="row">
+
+  <div class="panel">
+    <h2>TEAM A</h2>
+    <input id="t1-name" type="text" placeholder="Tên đội 1">
+    <input id="t1-short" type="text" placeholder="Short">
+    <input id="t1-logo" type="text" placeholder="URL logo">
+    <button onclick="setName(1)">Set Name</button>
+    <button onclick="setShort(1)">Set Short</button>
+    <button onclick="setLogo(1)">Set Logo</button>
+
+    <div class="score-row">
+      <button onclick="subScore(1)">-</button>
+      <span id="score1">0</span>
+      <button onclick="addScore(1)">+</button>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>TEAM B</h2>
+    <input id="t2-name" type="text" placeholder="Tên đội 2">
+    <input id="t2-short" type="text" placeholder="Short">
+    <input id="t2-logo" type="text" placeholder="URL logo">
+    <button onclick="setName(2)">Set Name</button>
+    <button onclick="setShort(2)">Set Short</button>
+    <button onclick="setLogo(2)">Set Logo</button>
+
+    <div class="score-row">
+      <button onclick="subScore(2)">-</button>
+      <span id="score2">0</span>
+      <button onclick="addScore(2)">+</button>
+    </div>
+  </div>
+
+</div>
+
+<div class="panel-big">
+  <h2>Tournament Header</h2>
+  <input id="tournament" type="text" placeholder="Tên giải đấu">
+  <button onclick="setTournament()">Set Tournament</button>
+
+  <div class="bo-row">
+    <button onclick="setBO('BO1')">BO1</button>
+    <button onclick="setBO('BO3')">BO3</button>
+    <button onclick="setBO('BO5')">BO5</button>
+  </div>
+</div>
+
+<div class="panel-big">
+  <h2>MAP PICKS</h2>
+  <input id="map-input" type="text" placeholder="Tên map (Mirage)">
+  <input id="map-short" type="text" placeholder="Short (MI)">
+  <button onclick="addMap(1)">Pick Team 1</button>
+  <button onclick="addMap(2)">Pick Team 2</button>
+  <button onclick="addDecider()">Add Decider</button>
+  <button onclick="clearMaps()" style="background:red;color:white;">Clear</button>
+
+  <div id="maps-list"></div>
+  <div id="series-box"></div>
+</div>
+
+<div class="panel-big">
+  <h2>Victory</h2>
+  <button onclick="triggerVictory(1)" style="background:#FF003C;color:white;">Team A Win</button>
+  <button onclick="triggerVictory(2)" style="background:#0094FF;color:white;">Team B Win</button>
+</div>
+
+<div class="panel-big">
+  <h2>Utils</h2>
+  <button onclick="resetScore()">Reset Score</button>
+  <button onclick="swapSide()">Swap Side</button>
+  <button onclick="toggleMaps()">Toggle Map Picks</button>
+  <button onclick="revealMaps()">Reveal Maps</button>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
