@@ -114,11 +114,45 @@ function triggerVictory(team){
 
 function toggleMaps(){
   db.ref("hud/showMaps").once("value").then(s=>{
-    db.ref("hud/showMaps").set(!s.val());
+    const cur = s.val();
+    if (cur === false) {
+      db.ref("hud/showMaps").set(true);
+    } else {
+      db.ref("hud/showMaps").set(false);
+    }
   });
 }
 
+
 function revealMaps(){
   db.ref("hud/reveal").set(Date.now());
+}
+
+function addDecider(){
+  const name = document.getElementById("map-input").value;
+  const short = document.getElementById("map-short").value;
+
+  if(!name) return;
+
+  db.ref("maps").once("value").then(snap=>{
+    const arr = snap.val() || [];
+    arr.push(name);
+    db.ref("maps").set(arr);
+  });
+
+  db.ref("boSeries").once("value").then(snap=>{
+    const arr = snap.val() || [];
+    arr.push(short);
+    db.ref("boSeries").set(arr);
+  });
+
+  db.ref("mapPickTeam").once("value").then(snap=>{
+    const arr = snap.val() || [];
+    arr.push(0);
+    db.ref("mapPickTeam").set(arr);
+  });
+
+  document.getElementById("map-input").value = "";
+  document.getElementById("map-short").value = "";
 }
 
