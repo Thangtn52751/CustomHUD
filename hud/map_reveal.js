@@ -33,9 +33,15 @@ function setCard(id,i){
   let card=document.getElementById(id);
   let name=card.querySelector(".map-name");
   let logo=card.querySelector(".map-logo");
+  let label=card.querySelector(".map-label");
+
+
+  if(i === 0) label.innerText = "Map 1";
+  else if(i === 1) label.innerText = "Map 2";
+  else label.innerText = "Decider";
   let t=picks[i];
 
-  name.innerText=shorts[i]||names[i];
+  name.innerText= names[i];
 
   if(t===1){
     db.ref("teams/team1/logo").once("value").then(s=>logo.src=s.val());

@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Russo+One&display=swap");
 
 body {
   margin: 0;
   background: transparent;
   overflow: hidden;
-  font-family: 'Russo One', sans-serif;
+  font-family: "Russo One", sans-serif;
 }
 
 /* ===== HEADER ===== */
@@ -21,7 +21,7 @@ body {
   font-weight: 900;
   color: white;
   text-transform: uppercase;
-  text-shadow: 0 0 6px rgba(0,0,0,0.8);
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.8);
 }
 
 /* ===== SCOREBOARD ===== */
@@ -34,9 +34,9 @@ body {
   height: 90px;
   border-radius: 20px;
   overflow: hidden;
-  border: 2px solid rgba(255,255,255,0.15);
+  border: 2px solid rgba(255, 255, 255, 0.15);
   display: flex;
-  align-items:center;
+  align-items: center;
   background: transparent;
   position: relative;
 }
@@ -44,60 +44,60 @@ body {
 /* half color split */
 #scoreboard::before,
 #scoreboard::after {
-  content:"";
-  position:absolute;
-  top:0;
-  width:50%;
-  height:100%;
-  z-index:-1;
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  z-index: -1;
 }
 
 #scoreboard::before {
-  left:0;
-  background:#FF003C;
+  left: 0;
+  background: #ff003c;
 }
 
 #scoreboard::after {
-  right:0;
-  background:#0094FF;
+  right: 0;
+  background: #0094ff;
 }
 
 /* side */
 .side {
-  flex:1;
-  display:flex;
-  align-items:center;
-  gap:14px;
-  padding:0 22px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 22px;
 }
 
 #side-left {
-  justify-content:flex-start;
+  justify-content: flex-start;
 }
 
 #side-right {
-  justify-content:flex-end;
-  flex-direction:row;
+  justify-content: flex-end;
+  flex-direction: row;
 }
 
 /* logo */
 .team-logo {
-  width:62px;
-  height:62px;
-  border-radius:12px;
-  object-fit:cover;
-  background:rgba(255,255,255,0.15);
+  width: 62px;
+  height: 62px;
+  border-radius: 12px;
+  object-fit: cover;
+  background: rgba(255, 255, 255, 0.15);
 }
 
 /* team name */
 .team-name {
-  font-size:30px;
-  font-weight:900;
-  max-width:200px;
-  color:white;
-  text-transform:uppercase;
-  text-shadow:0 0 6px rgba(0,0,0,0.6);
-  letter-spacing:1px;
+  font-size: 30px;
+  font-weight: 900;
+  max-width: 200px;
+  color: white;
+  text-transform: uppercase;
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+  letter-spacing: 1px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -105,150 +105,168 @@ body {
 
 /* score center */
 #score {
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:26px;
-  pointer-events:none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 26px;
+  pointer-events: none;
 }
 
 .score-left,
 .score-right {
-  font-size:56px;
-  font-weight:900;
-  color:white;
-  text-shadow:
-    0 0 10px rgba(255,255,255,0.6),
-    0 0 4px rgba(0,0,0,0.9);
-  min-width:48px;
-  text-align:center;
+  font-size: 56px;
+  font-weight: 900;
+  color: white;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.6), 0 0 4px rgba(0, 0, 0, 0.9);
+  min-width: 48px;
+  text-align: center;
 }
 
 #split-line {
-  width:2px;
-  height:60px;
-  background:rgba(255,255,255,0.35);
-  border-radius:2px;
+  width: 2px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 2px;
 }
 
 /* ===== MAP PICK CARD ===== */
 #hud-map-picks {
-  position:absolute;
-  bottom:60px;
-  left:50%;
-  transform:translateX(-50%);
-  display:flex;
-  gap:18px;
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 18px;
 }
 
 .map-card {
-  width:140px;
-  height:100px;
-  border-radius:12px;
-  background:rgba(0,0,0,0.35);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:6px;
+  width: 140px;
+  height: 100px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
 }
 
 .map-card-name {
-  font-size:20px;
-  font-weight:900;
-  color:white;
-  text-transform:uppercase;
-  text-shadow:0 0 6px rgba(0,0,0,0.6);
+  font-size: 20px;
+  font-weight: 900;
+  color: white;
+  text-transform: uppercase;
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
 }
 
 .map-card-logo {
-  width:46px;
-  height:46px;
-  border-radius:10px;
-  object-fit:cover;
-  background:rgba(255,255,255,0.25);
-  box-shadow:0 0 5px rgba(0,0,0,0.6);
+  width: 46px;
+  height: 46px;
+  border-radius: 10px;
+  object-fit: cover;
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
 }
 
 /* team color border */
 .map-card.a {
-  border:3px solid #FF003C;
+  border: 3px solid #ff003c;
 }
 
 .map-card.b {
-  border:3px solid #0094FF;
+  border: 3px solid #0094ff;
 }
 
 .map-card.decider {
-  border:3px solid rgba(255,255,255,0.85);
+  border: 3px solid rgba(255, 255, 255, 0.85);
 }
 
 /* ===== VICTORY ===== */
 .hidden {
-  display:none !important;
+  display: none !important;
 }
 
 #victory-screen {
-  position:fixed;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  backdrop-filter:blur(10px);
-  background:rgba(0,0,0,0.75);
-  animation:fadeIn .3s ease forwards;
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.75);
+  animation: fadeIn 0.3s ease forwards;
 }
 
 #victory-content {
-  text-align:center;
-  animation:scaleUp .4s ease forwards;
+  text-align: center;
+  animation: scaleUp 0.4s ease forwards;
 }
 
 #victory-logo {
-  width:200px;
-  height:200px;
-  margin-bottom:20px;
-  border-radius:18px;
-  object-fit:contain;
-  background:rgba(255,255,255,0.05);
+  width: 200px;
+  height: 200px;
+  margin-bottom: 20px;
+  border-radius: 18px;
+  object-fit: contain;
+  background: rgba(255, 255, 255, 0.05);
 }
 
 #victory-name {
-  font-size:60px;
-  font-weight:900;
-  margin-bottom:12px;
-  color:white;
-  text-shadow:0 0 20px rgba(255,255,255,0.9);
+  font-size: 60px;
+  font-weight: 900;
+  margin-bottom: 12px;
+  color: white;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.9);
 }
 
 #victory-text {
-  font-size:34px;
-  color:white;
+  font-size: 34px;
+  color: white;
 }
 
 #hud-map-picks {
   opacity: 1;
   visibility: visible;
-  transition: opacity .35s ease;
+  transition: opacity 0.35s ease;
 }
 #hud-map-picks.hidden {
   opacity: 0;
   visibility: hidden;
 }
 
+.map-label {
+  font-size: 18px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.85);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: -4px;
+}
 
 /* animation */
 @keyframes fadeIn {
-  0%{opacity:0;}
-  100%{opacity:1;}
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @keyframes scaleUp {
-  0%{transform:scale(0.6);opacity:0;}
-  80%{transform:scale(1.1);opacity:1;}
-  100%{transform:scale(1);}
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  80% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
 }
